@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Frank Tsai</Authors>
+    <PackageLicenseUrl>https://creativecommons.org/licenses/by-sa/3.0/</PackageLicenseUrl>
+    <PackageTags>office word lite</PackageTags>
+    <Description>This package provide several simple function:
+- Replace bookmark in document, use dictionary or anonymous object as input.
+- Expand specific table in document by input list of data.
+- Duplicate table and replace bookmark in newly created table.</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\frank\Source\Repos\MSWordLite\MSWordLite\MSWordLite.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.8.1" />
+  </ItemGroup>
+
+</Project>
