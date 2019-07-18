@@ -41,6 +41,10 @@ namespace MSWordLite.Processes
             {
                 return new DuplicateTableProcess() { Order = duplicateTableOrder };
             }
+            else if (order is InsertImageOrder insertImageOrder)
+            {
+                return new InsertImageProcess() { Order = insertImageOrder };
+            }
             return null;
         }
     }

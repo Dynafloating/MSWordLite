@@ -37,11 +37,22 @@ namespace MSWordLite.Elements
         {
             if (!Valid) { return false; }
 
-            var splitedText = text.Split(new string[] { "<br/>" }, StringSplitOptions.None);
+            var adeptedText = !string.IsNullOrEmpty(text) ? text : "";
+            var splitedText = adeptedText.Split(new string[] { "<br/>" }, StringSplitOptions.None);
             
             _clearBetweenStartAndEnd(Start);
 
             var run = _createRunFromTexts(Start, splitedText);
+            Start.Parent.InsertAfter(run, Start);
+
+            return true;
+        }
+
+        public bool InsertRun(Run run)
+        {
+            if (!Valid) { return false; }
+
+            _clearBetweenStartAndEnd(Start);
             Start.Parent.InsertAfter(run, Start);
 
             return true;
@@ -139,14 +150,9 @@ namespace MSWordLite.Elements
 
         public void Remove()
         {
-            if (Start != null)
+            if (Start != null && Start.Parent != null)
             {
                 Start.Remove();
-            }
-
-            if (End != null)
-            {
-                End.Remove();
             }
         }
 

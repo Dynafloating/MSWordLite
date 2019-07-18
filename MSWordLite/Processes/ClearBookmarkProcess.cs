@@ -5,6 +5,9 @@ namespace MSWordLite.Processes
 {
     class ClearBookmarkProcess : OrderProcess<ClearBookmarkOrder>
     {
+        private bool _filterByNames => Order.Names.Count > 0;
+        private bool _filterByRegex => Order.Regex != null;
+
         public override OrderResult Initialize(Document document)
         {
             return new OrderResult(success: true);
@@ -14,19 +17,29 @@ namespace MSWordLite.Processes
         {
             if (document.HasBookmarks)
             {
-                if (Order.Names.Count > 0)
+                if (_filterByNames || _filterByRegex)
                 {
-                    foreach (var bookmark in document.WordBookmarks
-                        .Where(p => Order.Names.Contains(p.Key)))
+                    if (_filterByNames)
                     {
-                        bookmark.Value.Remove();
+                        foreach (var bookmark in document.WordBookmarks
+                            .Where(p => Order.Names.Contains(p.Key)))
+                        {
+                            bookmark.Value.Remove();
+                        }
+                    }
+
+                    if (_filterByRegex)
+                    {
+                        foreach (var bookmark in document.WordBookmarks
+                            .Where(p => p.Value != null && Order.Regex.IsMatch(p.Key)))
+                        {
+                            bookmark.Value.Remove();
+                        }
                     }
                 }
-
-                if (Order.Regex != null)
+                else
                 {
-                    foreach (var bookmark in document.WordBookmarks
-                        .Where(p => p.Value != null && Order.Regex.IsMatch(p.Key)))
+                    foreach (var bookmark in document.WordBookmarks)
                     {
                         bookmark.Value.Remove();
                     }

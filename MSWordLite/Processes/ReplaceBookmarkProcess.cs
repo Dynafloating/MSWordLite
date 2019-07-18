@@ -1,9 +1,4 @@
-﻿using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Wordprocessing;
-using MSWordLite.Elements;
-using MSWordLite.Orders;
-using System.Collections.Generic;
-using System.Linq;
+﻿using MSWordLite.Orders;
 
 namespace MSWordLite.Processes
 {

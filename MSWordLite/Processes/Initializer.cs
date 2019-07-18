@@ -22,15 +22,5 @@ namespace MSWordLite.Processes
                     .ToDictionary(pair => pair.Key, pair => pair.Value);
             }
         }
-
-        public static void WordTables(Document document)
-        {
-            if (!document.HasTables)
-            {
-                document.WordTables = document.RootElement.Elements()
-                    .SelectMany(element => Table.SearchFrom(element))
-                    .ToList();
-            }
-        }
     }
 }

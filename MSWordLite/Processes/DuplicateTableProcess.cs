@@ -13,9 +13,7 @@ namespace MSWordLite.Processes
 
         public override OrderResult Initialize(Document document)
         {
-            Initializer.WordTables(document);
-
-            if (document.WordTables.Count <= Order.TableId)
+            if (document.WordTables.Count() <= Order.TableId)
             {
                 return new OrderResult(success: false, error: "invalid tableId");
             }
@@ -35,9 +33,13 @@ namespace MSWordLite.Processes
                 var newTable = _templateTable.WordTable.CloneNode(true);
 
                 var bookmarkMapInNewTable = Bookmark.SearchFrom(newTable);
-                foreach (var bookmark in bookmarkMapInNewTable.Values)
+                foreach (var bookmark in bookmarkMapInNewTable.Select(p => p.Value))
                 {
-                    bookmark.Replace(replaceContent[bookmark.Start.Name]);
+                    if (replaceContent.ContainsKey(bookmark.Start.Name))
+                    {
+                        bookmark.Replace(replaceContent[bookmark.Start.Name]);
+                    }
+                    
                     bookmark.Start.Name = $"{bookmark.Start.Name}-dt-{Order.TableId}-{index}";
                     document.WordBookmarks.Add(bookmark.Start.Name, bookmark);
                 }

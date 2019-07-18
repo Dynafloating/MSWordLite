@@ -2,6 +2,7 @@
 using DocumentFormat.OpenXml.Packaging;
 using MSWordLite.Elements;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MSWordLite
 {
@@ -11,29 +12,40 @@ namespace MSWordLite
     class Document
     {
         /// <summary>
-        /// Word 文件
+        /// Word document
         /// </summary>
         public WordprocessingDocument WordDocument { get; set; }
 
         /// <summary>
-        /// Word 文件根
+        /// Word document root.
         /// </summary>
         public OpenXmlPartRootElement RootElement => WordDocument.MainDocumentPart.RootElement;
 
         /// <summary>
-        /// 範本中所有的表格
+        /// All tables in tamplate at current time.
         /// </summary>
-        public List<Table> WordTables { get; set; } = new List<Table>();
-
-        public bool HasTables => WordTables != null && WordTables.Count > 0;
+        public IEnumerable<Table> WordTables => RootElement.Elements()
+            .SelectMany(element => Table.SearchFrom(element));
 
         /// <summary>
-        /// 範本中所有的書籤
+        /// Determine if document has any table.
+        /// </summary>
+        public bool HasTables => WordTables != null && WordTables.Count() > 0;
+
+        /// <summary>
+        /// All bookmarks in template.
         /// </summary>
         public Dictionary<string, Bookmark> WordBookmarks { get; set; } = new Dictionary<string, Bookmark>();
 
+        /// <summary>
+        /// Determine if document has any bookmark.
+        /// </summary>
         public bool HasBookmarks => WordBookmarks != null && WordBookmarks.Count > 0;
 
+        /// <summary>
+        /// Initialize an document object.
+        /// </summary>
+        /// <param name="wordDocument"></param>
         public Document(WordprocessingDocument wordDocument)
         {
             WordDocument = wordDocument;

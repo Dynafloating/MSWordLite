@@ -7,27 +7,26 @@ namespace MSWordLite.Processes
     class ExpandTableProcess : OrderProcess<ExpandTableOrder>
     {
         private Table _targetTable { get; set; }
-        private int _rowCloneTargetNumber => Order.WithoutHeader ? 0 : 1;
 
         public override OrderResult Initialize(Document document)
         {
-            Initializer.WordTables(document);
-            if (document.WordTables.Count <= Order.TableId)
-            {
-                return new OrderResult(success: false, error: "invalid tableId");
-            }
-
-            _targetTable = document.WordTables.ElementAt(Order.TableId);
             return new OrderResult(success: true);
         }
 
         public override OrderResult Process(Document document)
         {
+            if (document.WordTables.Count() <= Order.TableId)
+            {
+                return new OrderResult(success: false, error: "invalid tableId");
+            }
+
+            _targetTable = document.WordTables.ElementAt(Order.TableId);
+            var rowCloneTargetNumber = _targetTable.Rows.Count() - 1;
             foreach (var rowContent in Order.Content)
             {
-                _targetTable.Append(_targetTable.Rows.ElementAt(_rowCloneTargetNumber).Clone().ReplaceText(rowContent));
+                _targetTable.Append(_targetTable.Rows.ElementAt(rowCloneTargetNumber).Clone().ReplaceText(rowContent));
             }
-            _targetTable.Rows.ElementAt(_rowCloneTargetNumber).WordRow.Remove();
+            _targetTable.Rows.ElementAt(rowCloneTargetNumber).WordRow.Remove();
 
             return new OrderResult(success: true);
         }

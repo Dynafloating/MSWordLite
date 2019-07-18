@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MSWordLite</name>
+    </assembly>
+    <members>
+        <member name="T:MSWordLite.ProcessState">
+            <summary>
+            執行狀態
+            </summary>
+        </member>
+        <member name="F:MSWordLite.ProcessState.Waiting">
+            <summary>
+            等待中
+            </summary>
+        </member>
+        <member name="F:MSWordLite.ProcessState.Initilized">
+            <summary>
+            初始化中
+            </summary>
+        </member>
+        <member name="F:MSWordLite.ProcessState.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:MSWordLite.ProcessState.Failure">
+            <summary>
+            失敗
+            </summary>
+        </member>
+        <member name="F:MSWordLite.ProcessState.Disposed">
+            <summary>
+            產出的檔案已刪除
+            </summary>
+        </member>
+        <member name="T:MSWordLite.Elements.Bookmark">
+            <summary>
+            Word 文件書籤
+            </summary>
+        </member>
+        <member name="T:MSWordLite.Elements.Table">
+            <summary>
+            Word 文件表格
+            </summary>
+        </member>
+        <member name="T:MSWordLite.Elements.TableCell">
+            <summary>
+            Word 文件表格欄位
+            </summary>
+        </member>
+        <member name="T:MSWordLite.Elements.TableRow">
+            <summary>
+            Word 文件表格行
+            </summary>
+        </member>
+        <member name="T:MSWordLite.Orders.ClearBookmarkOrder">
+            <summary>
+            Remove bookmarks in document
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Orders.ClearBookmarkOrder.Valid">
+            <summary>
+            If this order is valid.
+            </summary>
+        </member>
+        <member name="M:MSWordLite.Orders.ClearBookmarkOrder.#ctor">
+            <summary>
+            Create an clear order to remove all bookmarks in doucment.
+            </summary>
+        </member>
+        <member name="M:MSWordLite.Orders.ClearBookmarkOrder.#ctor(System.Collections.Generic.List{System.String})">
+            <summary>
+            Create an clear order to remove specific name of bookmarks in document.
+            </summary>
+            <param name="names"></param>
+        </member>
+        <member name="M:MSWordLite.Orders.ClearBookmarkOrder.#ctor(System.String)">
+            <summary>
+            Create an clear order and use regex pattern to test if bookmarks need to be remove in document.
+            </summary>
+            <param name="regexPattern"></param>
+        </member>
+        <member name="P:MSWordLite.Orders.DuplicateTableOrder.TableId">
+            <summary>
+            Index of template table
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Orders.DuplicateTableOrder.ReplaceContents">
+            <summary>
+            Contents to replace
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Orders.DuplicateTableOrder.Valid">
+            <summary>
+            Check if this order is valid.
+            </summary>
+        </member>
+        <member name="M:MSWordLite.Orders.DuplicateTableOrder.#ctor(System.Int32,System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.String}})">
+            <summary>
+            
+            </summary>
+            <param name="tableId">Index of template table.</param>
+            <param name="replaceContents">Contents to replace.</param>
+        </member>
+        <member name="M:MSWordLite.Orders.DuplicateTableOrder.#ctor(System.Int32,System.Collections.Generic.List{System.Object})">
+            <summary>
+            
+            </summary>
+            <param name="tableId">Index of template table.</param>
+            <param name="replaceContents">Contents to replace.</param>
+        </member>
+        <member name="M:MSWordLite.Orders.DuplicateTableOrder.CreateFrom(System.Int32,System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.String}})">
+            <summary>
+            
+            </summary>
+            <param name="tableId">Index of template table.</param>
+            <param name="replaceContents">Contents to replace.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MSWordLite.Orders.DuplicateTableOrder.CreateFrom(System.Int32,System.Collections.Generic.List{System.Object})">
+            <summary>
+            
+            </summary>
+            <param name="tableId">Index of template table.</param>
+            <param name="replaceContents">Contents to replace.</param>
+            <returns></returns>
+        </member>
+        <member name="T:MSWordLite.Orders.ExpandTableOrder">
+            <summary>
+            Table exapnd process. To use, point a table with its id, process will append data after the last row.
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Orders.ExpandTableOrder.TableId">
+            <summary>
+            Index of table
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Orders.ExpandTableOrder.Content">
+            <summary>
+            Datas to be add.
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Orders.ExpandTableOrder.Valid">
+            <summary>
+            Is this order was valided.
+            </summary>
+        </member>
+        <member name="M:MSWordLite.Orders.ExpandTableOrder.#ctor(System.Int32,System.Collections.Generic.List{System.Collections.Generic.List{System.String}})">
+            <summary>
+            Initialize an expand order.
+            </summary>
+            <param name="tableId">Index of table.</param>
+            <param name="content">Contents to append.</param>
+        </member>
+        <member name="M:MSWordLite.Orders.ExpandTableOrder.CreateFrom(System.Int32,System.Collections.Generic.List{System.Collections.Generic.List{System.String}})">
+            <summary>
+            Create an order from table's id and, contents to append.
+            </summary>
+            <param name="tableId">Index of table.</param>
+            <param name="content">Contents to append.</param>
+            <returns></returns>
+        </member>
+        <member name="T:MSWordLite.Orders.InsertImageOrder">
+            <summary>
+            Replace bookmark by an image file.
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Orders.InsertImageOrder.BookmarkKey">
+            <summary>
+            Target bookmark key.
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Orders.InsertImageOrder.ImageContent">
+            <summary>
+            Image data in byte array format.
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Orders.InsertImageOrder.Width">
+            <summary>
+            Image width (px).
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Orders.InsertImageOrder.Height">
+            <summary>
+            Image height (px).
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Orders.InsertImageOrder.ContentType">
+            <summary>
+            Image content-type (ex. image/png).
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Orders.InsertImageOrder.Valid">
+            <summary>
+            Check if this order is valid.
+            </summary>
+        </member>
+        <member name="M:MSWordLite.Orders.InsertImageOrder.#ctor(System.String,System.Byte[],System.Int32,System.Int32,System.String)">
+            <summary>
+            Create an insert order.
+            </summary>
+            <param name="bookmarkKey">Target bookmark key.</param>
+            <param name="imageContent">Image data in byte array format.</param>
+            <param name="width">Image width (px).</param>
+            <param name="height">Image height (px).</param>
+            <param name="contentType">Image content-type.</param>
+        </member>
+        <member name="M:MSWordLite.Orders.InsertImageOrder.CreateFrom(System.String,System.Byte[],System.Int32,System.Int32,System.String)">
+            <summary>
+            Create an order from content.
+            </summary>
+            <param name="bookmarkKey">Target bookmark key.</param>
+            <param name="imageContent">Image data in byte array format.</param>
+            <param name="width">Image width (px).</param>
+            <param name="height">Image height (px).</param>
+            <param name="contentType">Image content-type.</param>
+        </member>
+        <member name="T:MSWordLite.Orders.ReplaceBookmarkOrder">
+            <summary>
+            Replace bookmark by text content in document.
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Orders.ReplaceBookmarkOrder.ReplaceContent">
+            <summary>
+            Content to replace
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Orders.ReplaceBookmarkOrder.Valid">
+            <summary>
+            Check if this order is valid.
+            </summary>
+        </member>
+        <member name="M:MSWordLite.Orders.ReplaceBookmarkOrder.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Create an replace order.
+            </summary>
+            <param name="replaceContent">Content to replace</param>
+        </member>
+        <member name="M:MSWordLite.Orders.ReplaceBookmarkOrder.#ctor(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Create an replace order.
+            </summary>
+            <param name="replaceContent">Content to replace</param>
+        </member>
+        <member name="M:MSWordLite.Orders.ReplaceBookmarkOrder.#ctor(System.Object)">
+            <summary>
+            Create an replace order.
+            </summary>
+            <param name="replaceContent">Content to replace</param>
+        </member>
+        <member name="M:MSWordLite.Orders.ReplaceBookmarkOrder.CreateFrom(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Create an order from content.
+            </summary>
+            <param name="replaceContent">Content to replace</param>
+        </member>
+        <member name="M:MSWordLite.Orders.ReplaceBookmarkOrder.CreateFrom(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Create an order from content.
+            </summary>
+            <param name="replaceContent">Content to replace</param>
+        </member>
+        <member name="M:MSWordLite.Orders.ReplaceBookmarkOrder.CreateFrom(System.Object)">
+            <summary>
+            Create an order from content.
+            </summary>
+            <param name="replaceContent">Content to replace</param>
+        </member>
+        <member name="T:MSWordLite.Tasks.GenerateTask">
+            <summary>
+            Word 文件產出作業
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.GenerateTask.TemplatePath">
+            <summary>
+            文件範本路徑
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.GenerateTask.Template">
+            <summary>
+            範本檔案
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.GenerateTask.OutputPath">
+            <summary>
+            產出路徑
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.GenerateTask.Output">
+            <summary>
+            產出檔案
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.GenerateTask.Error">
+            <summary>
+            錯誤訊息
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.GenerateTask.State">
+            <summary>
+            執行狀態
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.GenerateTask.Orders">
+            <summary>
+            產出時執行的命令
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.GenerateTask.Valid">
+            <summary>
+            此作業是否符合執行的必要條件
+            </summary>
+        </member>
+        <member name="T:MSWordLite.Tasks.IGenerateTask">
+            <summary>
+            Word generate task interface
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.IGenerateTask.TemplatePath">
+            <summary>
+            template path with file name and extension
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.IGenerateTask.Template">
+            <summary>
+            template file byte array
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.IGenerateTask.OutputPath">
+            <summary>
+            output path after generated, file name and extension is needed.
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.IGenerateTask.Output">
+            <summary>
+            output file byte array
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.IGenerateTask.Error">
+            <summary>
+            error message during process
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.IGenerateTask.State">
+            <summary>
+            state of task
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.IGenerateTask.Orders">
+            <summary>
+            orders to process
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Tasks.IGenerateTask.Valid">
+            <summary>
+            if this task is valid
+            </summary>
+        </member>
+        <member name="T:MSWordLite.Document">
+            <summary>
+            Word 範本文件
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Document.WordDocument">
+            <summary>
+            Word document
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Document.RootElement">
+            <summary>
+            Word document root.
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Document.WordTables">
+            <summary>
+            All tables in tamplate at current time.
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Document.HasTables">
+            <summary>
+            Determine if document has any table.
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Document.WordBookmarks">
+            <summary>
+            All bookmarks in template.
+            </summary>
+        </member>
+        <member name="P:MSWordLite.Document.HasBookmarks">
+            <summary>
+            Determine if document has any bookmark.
+            </summary>
+        </member>
+        <member name="M:MSWordLite.Document.#ctor(DocumentFormat.OpenXml.Packaging.WordprocessingDocument)">
+            <summary>
+            Initialize an document object.
+            </summary>
+            <param name="wordDocument"></param>
+        </member>
+    </members>
+</doc>
